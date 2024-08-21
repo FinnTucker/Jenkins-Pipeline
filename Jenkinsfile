@@ -14,7 +14,7 @@ pipeline{
             post{
                 success{
                     mail to: "finn.jgt1996@gmail.com",
-                    subject: "Unit and Integration Test result",
+                    subject: "Unit and Integration Test",
                     body: "Unit and integration test successful"
                 }
             }
@@ -31,11 +31,11 @@ pipeline{
             post{
                 success {
                     emailext(
-                        subject: "Security Scan Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                        body: """<p>The security scan stage for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> completed successfully.</p>
-                                 <p>Check out the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}consoleText">this link</a> to view the results.</p>""",
-                        attachLog: true,
-                        to: 'finn.jgt1996@gmail.com'
+                    to: "finn.jgt1996@gmail.com",
+                    subject: "Security Scan for ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """<p>The security scan stage for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> completed successfully.</p>
+                            <p>Check out the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}consoleText">this link</a> to view the results."</p>""",
+                    attachLog: true
                     )
                 }
             }
