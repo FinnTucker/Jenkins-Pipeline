@@ -5,8 +5,8 @@ pipeline{
             steps{
                 echo "Building..."
             }
-            }
         }
+        
         stage("Unit and Integration Tests"){
             steps{
                 echo "Ensure code functions as expected and run integration tests to ensure application components work together"
@@ -18,6 +18,7 @@ pipeline{
                     body: "Unit and integration test successful",
                     attachLog: true
                 }
+            }
         }
         stage("Code Analysis"){
             steps{
@@ -41,6 +42,7 @@ pipeline{
                 failure{
 
                 }
+            }
         }
         stage("Deploy To Staging"){
             steps{
@@ -59,3 +61,4 @@ pipeline{
         }
     }
 }
+
