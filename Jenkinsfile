@@ -75,7 +75,7 @@ pipeline{
             post{
                 success{
                     emailext(
-                        subject:"Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        subject:"staging platform integration test Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                         body: """The staging platform integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.
                                 Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
                         to: "finn.jgt1996@gmail.com",
@@ -84,7 +84,7 @@ pipeline{
                 }
                 failure{
                     emailext(
-                        subject:"Build failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        subject:"staging platform integration test failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                         body: """The staging platform integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} failed to complete.
                                 Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
                         to: "finn.jgt1996@gmail.com",
