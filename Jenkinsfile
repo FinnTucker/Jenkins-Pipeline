@@ -1,16 +1,15 @@
 pipeline{
     agent any
     stages {
-        stage('Build') {
+        stage("Build") {
             steps {
-                echo 'Building the project...'
-                // Your build steps here
+                echo "Building the project... A tool such as Maven can be used to compile the source code, resolve dependencies and package the application."
             }  
         }
 
         stage("Unit and Integration Tests"){
             steps{
-                echo "Ensure code functions as expected and run integration tests to ensure application components work together"
+                echo "JUnit can be used for unit testing to ensure that individual coomponents work correctly, and TestNG can be used for integration testing to verify that different components work together."
             }
             post{
                 success{
@@ -35,12 +34,12 @@ pipeline{
         }
         stage("Code Analysis"){
             steps{
-                echo "analyse code to ensure it meets industry standards"
+                echo "analyse code to ensure it meets industry standards. SonarQube is a powerful tool for the continuous inspection of the quality of code. It analyses for bugs, vulnerabilities, code smells and technical debt. It provides actionable insights and maintains high quality standards for code."
             }
         }
         stage("Security Scan"){
             steps{
-                echo "Scan for security vulnerabilities"
+                echo "Scan for security vulnerabilities. Snyk is a popular tool for detecting and fixing vulnerabilities in source code, dependencies, container images and infrastructure configuration files."
             }
             post{
                 success{
@@ -65,7 +64,7 @@ pipeline{
         }
         stage("Deploy To Staging"){
             steps{
-                echo "Deploy the application to a staging server (eg Amazon Elastic Compute Cloud)"
+                echo "Deploy the application to a staging server (eg Amazon Elastic Compute Cloud). The production environment is a near-identical EC2 instance, it can be created from the identical AMI (Amazon Machine Image)"
             }
         }
         stage("Integration tests on Staging Platform"){
