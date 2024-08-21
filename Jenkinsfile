@@ -5,8 +5,7 @@ pipeline{
             steps {
                 echo 'Building the project...'
                 // Your build steps here
-            }
-    
+            }  
     post {
         success {
             emailext(
@@ -32,11 +31,6 @@ pipeline{
         stage("Unit and Integration Tests"){
             steps{
                 echo "Ensure code functions as expected and run integration tests to ensure application components work together"
-            }
-            post{
-                success{
-                mail to
-                }
             }
         }
         stage("Code Analysis"){
