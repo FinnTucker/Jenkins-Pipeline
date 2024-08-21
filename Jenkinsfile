@@ -5,18 +5,19 @@ pipeline{
             steps{
                 echo "Building..."
             }
-            post{
-                success{
-                    mail to: "finn.jgt1996@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build was successful"
-                }
             }
         }
         stage("Unit and Integration Tests"){
             steps{
                 echo "Ensure code functions as expected and run integration tests to ensure application components work together"
             }
+            post{
+                success{
+                    mail to: "finn.jgt1996@gmail.com",
+                    subject: "Unit and Integration Test result",
+                    body: "Unit and integration test successful",
+                    attachLog: true
+                }
         }
         stage("Code Analysis"){
             steps{
@@ -27,6 +28,22 @@ pipeline{
             steps{
                 echo "Scan for security vulnerabilities"
             }
+            post{
+                success{
+                    script{
+                        emailext{
+                            subject: "Security Scan Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                            body:"""<p>Good news!</p>
+                                <p>The security scan for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> was successful.</p>
+                                <p>Check the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}</a> to view the results.</p>""",
+                            attachLog: true,
+                            to: "finn.jgt1996@gmail.com"
+                        }
+                    }
+                }
+                failure{
+
+                }
         }
         stage("Deploy To Staging"){
             steps{
