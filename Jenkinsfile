@@ -27,10 +27,7 @@ pipeline{
             steps{
                 echo "Scan for security vulnerabilities"
             }
-            post{
-
-                }
-            }
+        }
         stage("Deploy To Staging"){
             steps{
                 echo "Deploy the application to a staging server (eg Amazon Elastic Compute Cloud)"
