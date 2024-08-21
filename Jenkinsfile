@@ -6,31 +6,31 @@ pipeline{
                 echo 'Building the project...'
                 // Your build steps here
             }  
-    post {
-        success {
-            emailext(
-                subject: "Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """<p>The build for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> completed successfully.</p>
-                         <p>Check out the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}consoleText</a> to view the results.</p>""",
-                to: "finn.jgt1996@gmail.com",
-                attachLog: true
-            )
-        }
-        failure {
-            emailext(
-                subject: "Build Failed: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """<p>The build for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> failed.</p>
-                         <p>Check out the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}consoleText</a> to view the results.</p>""",
-                to: "finn.jgt1996@gmail.com",
-                attachLog: true
-            )
-        }
-        }
         }
 
         stage("Unit and Integration Tests"){
             steps{
                 echo "Ensure code functions as expected and run integration tests to ensure application components work together"
+            }
+            post{
+                success{
+                    emailext(
+                        subject:"unit and integration test Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The unit and integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true                        
+                    )
+                }
+                failure{
+                    emailext(
+                        subject:"Unit and integration test failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The unit and integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} failed to complete.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true
+                    )
+                }
             }
         }
         stage("Code Analysis"){
@@ -42,6 +42,26 @@ pipeline{
             steps{
                 echo "Scan for security vulnerabilities"
             }
+            post{
+                success{
+                    emailext(
+                        subject:"Security scan Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The security scan for ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true                        
+                    )
+                }
+                failure{
+                    emailext(
+                        subject:"security scan failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The security scan for ${env.JOB_NAME} #${env.BUILD_NUMBER} failed to complete.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true
+                    )
+                }
+            }            
         }
         stage("Deploy To Staging"){
             steps{
@@ -52,6 +72,26 @@ pipeline{
             steps{
                 echo "Run integration tests on staging environment to ensure it runs as expected in a production-like environment"
             }
+            post{
+                success{
+                    emailext(
+                        subject:"Build Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The staging platform integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} completed successfully.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true                        
+                    )
+                }
+                failure{
+                    emailext(
+                        subject:"Build failure: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """The staging platform integration test for ${env.JOB_NAME} #${env.BUILD_NUMBER} failed to complete.
+                                Check out the console output at ${env.BUILD_URL}">${env.BUILD_URL}consoleText to view the results.""",
+                        to: "finn.jgt1996@gmail.com",
+                        attachLog: true
+                    )
+                }
+            }            
         }
         stage("Deploy to Production"){
             steps{
