@@ -16,7 +16,6 @@ pipeline{
                     mail to: "finn.jgt1996@gmail.com",
                     subject: "Unit and Integration Test result",
                     body: "Unit and integration test successful",
-                    attachLog: true
                 }
             }
         }
@@ -38,9 +37,6 @@ pipeline{
                         attachLog: true,
                         to: 'finn.jgt1996@gmail.com'
                     )
-                }
-                failure{
-
                 }
             }
         }
