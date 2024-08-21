@@ -11,9 +11,11 @@ pipeline{
                 echo "Ensure code functions as expected and run integration tests to ensure application components work together"
             }
             post{
+                success{
                 emailext body: 'Test Message',
                 subject: 'Test Subject',
                 to: 'finn.jgt1996@gmail.com'
+                }
             }
         }
         stage("Code Analysis"){
@@ -46,3 +48,4 @@ pipeline{
         }
     }
 }
+
