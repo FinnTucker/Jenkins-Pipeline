@@ -40,7 +40,6 @@ pipeline{
                     }
                 }
             }
-        }
         stage("Deploy To Staging"){
             steps{
                 echo "Deploy the application to a staging server (eg Amazon Elastic Compute Cloud)"
@@ -57,5 +56,5 @@ pipeline{
             }
         }
     }
-
+}
 
