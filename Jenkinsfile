@@ -29,17 +29,14 @@ pipeline{
                 echo "Scan for security vulnerabilities"
             }
             post{
-                success{
-                    script{
-                        emailext{
-                            subject: "Security Scan Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                            body:"""<p>Good news!</p>
-                                <p>The security scan for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> was successful.</p>
-                                <p>Check the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}</a> to view the results.</p>""",
-                            attachLog: true,
-                            to: "finn.jgt1996@gmail.com"
-                        }
-                    }
+                success {
+                    emailext(
+                        subject: "Security Scan Success: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                        body: """<p>The security scan stage for <b>${env.JOB_NAME} #${env.BUILD_NUMBER}</b> completed successfully.</p>
+                                 <p>Check out the console output at <a href="${env.BUILD_URL}">${env.BUILD_URL}consoleText">this link</a> to view the results.</p>""",
+                        attachLog: true,
+                        to: 'finn.jgt1996@gmail.com'
+                    )
                 }
                 failure{
 
